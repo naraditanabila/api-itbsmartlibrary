@@ -31,9 +31,8 @@ app.post('/buku/add',async(req,res) => {
 })
 
 //Menambah stok buku lama (PUT)
-app.put('/buku/add/:id_buku',async(req,res) => {
-    const id_buku = req.params.id_buku
-    const {jml_buku} = req.body
+app.put('/buku/update',async(req,res) => {
+    const {id_buku,jml_buku} = req.body
 
     await dbPromise.query(`UPDATE buku SET jml_total=jml_total+${jml_buku}, jml_avail=jml_avail+${jml_buku}
         WHERE id_buku = ${id_buku}`)
