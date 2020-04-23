@@ -37,7 +37,8 @@ app.put('/buku/update',async(req,res) => {
     await dbPromise.query(`UPDATE buku SET jml_total=jml_total+${jml_buku}, jml_avail=jml_avail+${jml_buku}
         WHERE id_buku = ${id_buku}`)
     console.log(req.body)
-    res.json('Stok buku berhasil ditambahkan.')
+    const resData = await dbPromise.query(`select * from buku where id_buku = ${id_buku}`)
+    res.json(resData.rows)
 })
 
 //Cari buku berdasarkan judul (GET)
