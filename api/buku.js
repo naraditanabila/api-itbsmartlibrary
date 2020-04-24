@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
 const Pool = require('pg').Pool
 require('dotenv').config()
@@ -31,7 +32,7 @@ app.post('/buku/add',async(req,res) => {
 })
 
 //Menambah stok buku lama (PUT)
-app.put('/buku/update',async(req,res) => {
+app.put('/buku/update',cors(),async(req,res) => {
     const {id_buku,jml_buku} = req.body
 
     await dbPromise.query(`UPDATE buku SET jml_total=jml_total+${jml_buku}, jml_avail=jml_avail+${jml_buku}

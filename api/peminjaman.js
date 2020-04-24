@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
 const Pool = require('pg').Pool
 require('dotenv').config()
@@ -30,7 +31,7 @@ app.post('/peminjaman/add',async(req,res) => {
 })
 
 //update peminjaman ketika mengembalikan (PUT) -- updateTransaction
-app.put('/peminjaman/update',async(req,res)=>{
+app.put('/peminjaman/update',cors(),async(req,res)=>{
     const {id_anggota, id_buku} = req.body
     await dbPromise.query(`update transaksi set status_pinjam = false, tgl_selesai = now(), denda= durasi_pinjam(tgl_kembali, current_date)*1000
     where id_anggota = ${id_anggota} and id_buku = ${id_buku} and status_pinjam= true`)
